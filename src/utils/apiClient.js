@@ -36,8 +36,8 @@ class ApiClient {
     console.warn(`[API Switch] Now using fallback API: ${this.getBaseUrl()}`);
   }
 
-  async fetch(endpoint, options = {}, config = {}) {
-    const { disableCache = false, abortKey = null, retries = MAX_RETRIES } = config;
+  async fetch(endpoint, options = {}) {
+    const { disableCache = false, abortKey = null, retries = MAX_RETRIES, params, ...nativeFetchOptions } = options;
     
     // We will attempt across retries AND across API endpoints.
     // So total attempts could be higher.
@@ -47,14 +47,13 @@ class ApiClient {
       const baseUrl = this.getBaseUrl();
       const url = new URL(endpoint, baseUrl);
       
-      if (options.params) {
-        Object.entries(options.params).forEach(([k, v]) => {
+      if (params) {
+        Object.entries(params).forEach(([k, v]) => {
           if (v !== undefined && v !== null) url.searchParams.append(k, String(v));
         });
-        // Note: we don't delete options.params here so it persists for retries
       }
 
-      const isGet = !options.method || options.method.toUpperCase() === 'GET';
+      const isGet = !nativeFetchOptions.method || nativeFetchOptions.method.toUpperCase() === 'GET';
       const cacheKey = url.toString();
 
       // 2. Check LRU Cache for GET requests
@@ -75,9 +74,7 @@ class ApiClient {
       const controller = new AbortController();
       this.abortControllers.set(reqKey, controller);
       
-      const signal = options.signal || controller.signal;
-      // create a clean options object without params for native fetch
-      const { params, ...nativeFetchOptions } = options;
+      const signal = nativeFetchOptions.signal || controller.signal;
       const finalOptions = { ...nativeFetchOptions, signal };
 
       try {
@@ -129,16 +126,17 @@ class ApiClient {
 
   // --- Convenience Methods ---
 
-  get(endpoint, params = {}, config = {}) {
-    return this.fetch(endpoint, { method: 'GET', params }, config);
+  get(endpoint, config = {}) {
+    return this.fetch(endpoint, { method: 'GET', ...config });
   }
 
-  post(endpoint, body, config = {}) {
+  post(endpoint, data, config = {}) {
     return this.fetch(endpoint, { 
       method: 'POST', 
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    }, config);
+      body: JSON.stringify(data),
+      ...config
+    });
   }
 }
 
