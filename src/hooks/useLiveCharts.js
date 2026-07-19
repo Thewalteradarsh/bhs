@@ -14,62 +14,55 @@ export function useLiveCharts(spotifyId) {
         setError(null);
 
         try {
-            const targetUrl = `https://open.spotify.com/embed/playlist/${id}`;
-            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
+            // [!] IMPORTANT: The direct HTML proxy approach is blocked by Spotify.
+            // Switching to the official Spotify Web API.
+            // TODO: Insert a valid client-side generated Spotify Access Token here.
+            // Example: const accessToken = 'BQA...';
+            const accessToken = ''; 
 
-            console.log("Fetching live playlist from URL:", proxyUrl);
-            const response = await fetch(proxyUrl);
-            if (!response.ok) throw new Error(`Network error fetching playlist proxy: ${response.status} ${response.statusText}`);
-
-            const rawText = await response.text();
-            if (!rawText) throw new Error('Empty payload returned');
-
-            let html = rawText;
-            
-            // Ensure we check if it's valid JSON before trying to parse a contents string
-            // to prevent crashes on 404s or empty responses from proxies
-            try {
-                const parsedJson = JSON.parse(rawText);
-                if (parsedJson.contents) {
-                    html = parsedJson.contents;
-                } else if (parsedJson.error) {
-                    throw new Error(`Proxy returned an error: ${parsedJson.error}`);
-                }
-            } catch (jsonErr) {
-                // If it fails to parse as JSON and it's not a proxy Error thrown above,
-                // it means we got raw HTML back from corsproxy.io, which is expected.
-                if (jsonErr.message.includes('Proxy returned an error')) {
-                    throw jsonErr;
-                }
+            if (!accessToken) {
+                console.warn("Missing Spotify Access Token. Please provide one to fetch playlists.");
+                // For development, if token is missing, we could throw here or handle gracefully.
+                throw new Error("Missing Spotify Access Token");
             }
 
-            const tagStart = '<script id="__NEXT_DATA__" type="application/json">';
-            const startIdx = html.indexOf(tagStart);
-            if (startIdx === -1) throw new Error('Metadata block not found in page');
+            const apiUrl = `https://api.spotify.com/v1/playlists/${id}`;
+            console.log("Fetching live playlist from Spotify API:", apiUrl);
 
-            const jsonStart = startIdx + tagStart.length;
-            const jsonEnd = html.indexOf('</script>', jsonStart);
-            const rawJson = html.substring(jsonStart, jsonEnd);
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
 
-            const parsed = JSON.parse(rawJson);
-            const entity = parsed?.props?.pageProps?.state?.data?.entity;
-
-            if (!entity || !entity.trackList) {
-                throw new Error('Playlist tracklist structure is missing or modified');
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(`Spotify API error: ${response.status} ${errorData.error?.message || response.statusText}`);
             }
 
-            const formattedTracks = entity.trackList.map((item, index) => ({
-                rank: index + 1,
-                id: item.uri?.replace('spotify:track:', '') || `track_${index}`,
-                title: item.title || item.name || 'Unknown Title',
-                artists: item.subtitle || item.artists?.map(a => a.name).join(', ') || 'Unknown Artist',
-                albumArt: item.coverArt?.sources?.[0]?.url || '',
-                durationMs: item.duration || 0,
-                durationFormatted: formatDuration(item.duration),
-                previewUrl: item.audioPreview?.url || item.previewUrl || null
-            }));
+            const data = await response.json();
 
-            const title = entity.name || 'Playlist';
+            if (!data || !data.tracks || !data.tracks.items) {
+                throw new Error('Playlist tracklist structure is missing or invalid');
+            }
+
+            const formattedTracks = data.tracks.items
+                .filter(item => item.track) // Filter out null tracks or local files if any
+                .map((item, index) => {
+                    const track = item.track;
+                    return {
+                        rank: index + 1,
+                        id: track.id || `track_${index}`,
+                        title: track.name || 'Unknown Title',
+                        artists: track.artists?.map(a => a.name).join(', ') || 'Unknown Artist',
+                        albumArt: track.album?.images?.[0]?.url || '',
+                        durationMs: track.duration_ms || 0,
+                        durationFormatted: formatDuration(track.duration_ms),
+                        previewUrl: track.preview_url || null
+                    };
+                });
+
+            const title = data.name || 'Playlist';
 
             // Save to localStorage with current timestamp
             const cacheData = {
