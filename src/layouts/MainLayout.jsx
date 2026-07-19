@@ -10,8 +10,8 @@ export default function MainLayout() {
       <aside className="w-64 flex-shrink-0 flex flex-col p-2 gap-2 hidden md:flex z-40">
         {/* Top Section */}
         <div className="bg-[#121212] rounded-lg p-5 flex flex-col gap-5">
-          <div className="text-3xl font-extrabold tracking-tighter cursor-pointer flex items-center">
-            Hear<span className="text-primary">.</span>
+          <div className="cursor-pointer flex items-center">
+            <img src="/logo.png" alt="Hear Logo" className="h-12 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform" />
           </div>
           <nav className="flex flex-col gap-4">
             <NavItem to="/" icon={<Home size={24} />} label="Home" />

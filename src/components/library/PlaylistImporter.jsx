@@ -98,8 +98,10 @@ export default function PlaylistImporter({ isOpen, onClose }) {
            <X size={24} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-2 flex items-center gap-2"><Download className="text-primary"/> Playlist Importer</h2>
-        <p className="text-grayText text-sm mb-6">Paste your Spotify tracklist (e.g., "Song Name - Artist"). We will use precision matching to resolve 320kbps streams.</p>
+        <h2 className="text-2xl font-bold mb-2 flex items-center gap-2"><Download className="text-primary"/> Import from Spotify</h2>
+        <p className="text-grayText text-sm mb-6">
+          To import a Spotify playlist, open Spotify on your desktop, select all tracks (Ctrl+A / Cmd+A), copy them (Ctrl+C / Cmd+C), and paste them below. We will use precision matching to automatically find and link the high-quality audio streams.
+        </p>
 
         {!isImporting && !importedPlaylist && (
           <>
