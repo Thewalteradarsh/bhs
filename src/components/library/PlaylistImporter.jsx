@@ -18,31 +18,21 @@ export default function PlaylistImporter({ isOpen, onClose }) {
     
     setIsFetchingUrl(true);
     try {
-      let embedUrl = url;
-      if (url.includes('open.spotify.com/playlist/')) {
-          embedUrl = url.replace('open.spotify.com/playlist/', 'open.spotify.com/embed/playlist/');
-      } else if (url.includes('open.spotify.com/album/')) {
-          embedUrl = url.replace('open.spotify.com/album/', 'open.spotify.com/embed/album/');
-      }
-      embedUrl = embedUrl.split('?')[0];
-      
-      const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(embedUrl)}`);
+      const apiUrl = `/api/fetchPlaylist?playlistUrl=${encodeURIComponent(url)}`;
+      const response = await fetch(apiUrl);
       const data = await response.json();
-      const html = data.contents;
       
-      const match = html.match(/<script id="__NEXT_DATA__"[^>]*>(.*?)<\/script>/);
-      if (match) {
-        const nextData = JSON.parse(match[1]);
-        const trackList = nextData.props?.pageProps?.state?.data?.entity?.trackList || [];
-        
-        const formattedTracks = trackList.map(t => `${t.title} - ${t.subtitle}`).filter(t => t !== ' - ').join('\n');
-        if (formattedTracks) {
-           setInputText(prev => prev ? prev + '\n' + formattedTracks : formattedTracks);
-           setPlaylistUrl(''); // Clear input after successful fetch
-        }
+      if (!response.ok) {
+        throw new Error(data.error || `Server error: ${response.status}`);
+      }
+
+      if (data.tracks) {
+        setInputText(prev => prev ? prev + '\n' + data.tracks : data.tracks);
+        setPlaylistUrl(''); // Clear input after successful fetch
       }
     } catch (err) {
-      console.error("Failed to fetch playlist via URL", err);
+      console.error("Failed to fetch playlist via local API", err);
+      // Optional: you could set an error state here to show in the UI
     } finally {
       setIsFetchingUrl(false);
     }
