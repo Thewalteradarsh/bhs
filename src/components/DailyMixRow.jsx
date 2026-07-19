@@ -4,10 +4,8 @@ import { fetchDailyMixes } from '../services/GroqCurator';
 import AIPlaylistRow from './AIPlaylistRow';
 
 export default function DailyMixRow() {
-  const { recentHistory, userPreferences } = useAppStore(state => ({
-    recentHistory: state.recentHistory,
-    userPreferences: state.userPreferences
-  }));
+  const recentHistory = useAppStore(state => state.recentHistory);
+  const userPreferences = useAppStore(state => state.userPreferences);
   const [mixes, setMixes] = useState(null);
   const [loading, setLoading] = useState(true);
 
