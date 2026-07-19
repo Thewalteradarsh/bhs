@@ -13,12 +13,11 @@ export default function FullScreenPlayer({ isOpen, onClose }) {
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
   const isLiked = likedSongs.some(t => t.id === currentTrack.id);
 
-  const formatImage = (image) => {
-    if (Array.isArray(image)) return image.find(i => i.quality === '500x500')?.url || image[0]?.url;
-    return image || 'https://via.placeholder.com/500';
+  const formatImage = (track) => {
+    return track.album?.cover_xl || track.album?.cover_medium || track.album?.cover || 'https://via.placeholder.com/500';
   };
 
-  const imageUrl = formatImage(currentTrack.image);
+  const imageUrl = formatImage(currentTrack);
 
   const formatTime = (seconds) => {
     if (!seconds || isNaN(seconds)) return "0:00";
@@ -80,8 +79,8 @@ export default function FullScreenPlayer({ isOpen, onClose }) {
         {/* Metadata & Liked Toggle */}
         <div className="flex items-center justify-between mb-8">
           <div className="min-w-0 pr-4">
-            <h2 className="text-2xl font-bold text-white truncate mb-1">{currentTrack.name || currentTrack.title}</h2>
-            <p className="text-lg text-white/70 truncate">{currentTrack.primaryArtists || currentTrack.artist}</p>
+            <h2 className="text-2xl font-bold text-white truncate mb-1">{currentTrack.title}</h2>
+            <p className="text-lg text-white/70 truncate">{currentTrack.artist?.name}</p>
           </div>
           <button onClick={toggleLike} className="p-3 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
             <Heart size={28} className={isLiked ? "fill-primary text-primary" : "text-white/70"} />

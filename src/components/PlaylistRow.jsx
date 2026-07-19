@@ -13,12 +13,12 @@ export default function PlaylistRow({ categoryData }) {
       setIsLoading(true);
       setError(null);
       // Fetch using our API client (uses LRU Cache internally)
-      const res = await api.get('/search/songs', { 
-        params: { query: categoryData.apiQuery, limit: 12 },
+      const res = await api.get('/search', { 
+        params: { q: categoryData.apiQuery, limit: 12 },
         signal
       });
       
-      const results = res.data?.results || res.results || res.data || [];
+      const results = res.data?.data || res.data || [];
       if (results.length === 0) throw new Error("No tracks found");
       
       setTracks(results);
@@ -86,12 +86,8 @@ export default function PlaylistRow({ categoryData }) {
 }
 
 function TrackCard({ track, onPlay }) {
-  // Defensive image parsing based on JioSaavn payload variations
-  const formatImage = (image) => {
-    if (Array.isArray(image)) {
-      return image.find(i => i.quality === '500x500')?.url || image[0]?.url;
-    }
-    return image || 'https://via.placeholder.com/500';
+  const formatImage = (track) => {
+    return track.album?.cover_xl || track.album?.cover_medium || track.album?.cover || 'https://via.placeholder.com/500';
   };
 
   return (
@@ -100,7 +96,7 @@ function TrackCard({ track, onPlay }) {
       onClick={onPlay}
     >
       <div className="w-full aspect-square bg-[#333] rounded-md mb-4 shadow-lg group-hover:shadow-xl relative overflow-hidden">
-        <img src={formatImage(track.image)} alt={track.title || track.name} className="w-full h-full object-cover" loading="lazy" />
+        <img src={formatImage(track)} alt={track.title} className="w-full h-full object-cover" loading="lazy" />
         
         {/* Play Button Overlay */}
         <div className="absolute bottom-2 right-2 w-12 h-12 bg-primary rounded-full flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl">
@@ -109,8 +105,8 @@ function TrackCard({ track, onPlay }) {
           </svg>
         </div>
       </div>
-      <h3 className="font-bold text-white text-sm truncate mb-1">{track.name || track.title}</h3>
-      <p className="text-xs text-grayText truncate line-clamp-2">{track.primaryArtists || track.artist || track.subtitle}</p>
+      <h3 className="font-bold text-white text-sm truncate mb-1">{track.title}</h3>
+      <p className="text-xs text-grayText truncate line-clamp-2">{track.artist?.name}</p>
     </div>
   );
 }

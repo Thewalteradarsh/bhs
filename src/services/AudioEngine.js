@@ -142,7 +142,9 @@ class AudioEngineSingleton {
 
     // 2. Fallback to Network
     if (!streamUrl) {
-      if (Array.isArray(track.downloadUrl)) {
+      if (track.preview) {
+        streamUrl = track.preview;
+      } else if (Array.isArray(track.downloadUrl)) {
         const highRes = track.downloadUrl.find(u => u.quality === '320kbps');
         const standardRes = track.downloadUrl.find(u => u.quality === '160kbps');
         streamUrl = highRes?.url || standardRes?.url || track.downloadUrl[0]?.url;

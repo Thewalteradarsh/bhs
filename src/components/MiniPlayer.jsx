@@ -15,9 +15,8 @@ export default function MiniPlayer() {
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
   const isLiked = likedSongs.some(t => t.id === currentTrack.id);
 
-  const formatImage = (image) => {
-    if (Array.isArray(image)) return image.find(i => i.quality === '150x150')?.url || image[0]?.url;
-    return image || 'https://via.placeholder.com/150';
+  const formatImage = (track) => {
+    return track.album?.cover_xl || track.album?.cover_medium || track.album?.cover || 'https://via.placeholder.com/150';
   };
 
   const toggleLike = (e) => {
@@ -43,10 +42,10 @@ export default function MiniPlayer() {
         <div className="flex items-center w-full gap-4">
           {/* Track Info & Like */}
           <div className="flex items-center gap-3 flex-1 min-w-0">
-            <img src={formatImage(currentTrack.image)} alt="Artwork" className="w-12 h-12 rounded-md object-cover shadow-md" />
+            <img src={formatImage(currentTrack)} alt="Artwork" className="w-12 h-12 rounded-md object-cover shadow-md" />
             <div className="truncate pr-2">
-              <h4 className="text-white text-sm font-bold truncate">{currentTrack.name || currentTrack.title}</h4>
-              <p className="text-grayText text-xs truncate">{currentTrack.primaryArtists || currentTrack.artist}</p>
+              <h4 className="text-white text-sm font-bold truncate">{currentTrack.title}</h4>
+              <p className="text-grayText text-xs truncate">{currentTrack.artist?.name}</p>
             </div>
             <button onClick={toggleLike} className="hidden md:block p-2 ml-2">
               <Heart size={20} className={isLiked ? "fill-primary text-primary" : "text-grayText hover:text-white"} />

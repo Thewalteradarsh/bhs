@@ -21,25 +21,25 @@ export const CURATED_PLAYLISTS = {
       id: 'mal_trending_01',
       category: 'Trending Now 🔥',
       subtitle: 'Viral hits and chart-toppers from Mollywood',
-      apiQuery: 'Malayalam Trending 2026'
+      apiQuery: 'Malayalam hits'
     },
     {
       id: 'mal_classics_01',
       category: 'Timeless Classics 🌴',
       subtitle: 'Golden melodies from the 90s and 2000s',
-      apiQuery: 'Vidyasagar Malayalam Classics'
+      apiQuery: 'Malayalam classic'
     },
     {
       id: 'mal_romance_01',
       category: 'Late Night Romance 💖',
       subtitle: 'Anuragatham: Soulful romantic tracks',
-      apiQuery: 'Malayalam Love Songs Hesham Abdul Wahab'
+      apiQuery: 'Malayalam romance'
     },
     {
       id: 'mal_bangers_01',
       category: 'High-Energy Bangers ⚡',
       subtitle: 'Adipoli beats and high-tempo tracks',
-      apiQuery: 'Sushin Shyam Dance Hits'
+      apiQuery: 'Malayalam dance'
     }
   ],
   tamil: [
@@ -47,25 +47,25 @@ export const CURATED_PLAYLISTS = {
       id: 'tam_trending_01',
       category: 'Trending Now 🔥',
       subtitle: 'What Kollywood is listening to right now',
-      apiQuery: 'Tamil Trending 2026 Anirudh'
+      apiQuery: 'Tamil hits'
     },
     {
       id: 'tam_classics_01',
       category: 'Timeless Classics 🌴',
       subtitle: 'The everlasting magic of the masters',
-      apiQuery: 'Ilaiyaraaja AR Rahman Tamil 90s'
+      apiQuery: 'Tamil classic'
     },
     {
       id: 'tam_romance_01',
       category: 'Late Night Romance 💖',
       subtitle: 'Kaadhal notes and soothing vocals',
-      apiQuery: 'Sid Sriram Tamil Love Melodies'
+      apiQuery: 'Tamil love'
     },
     {
       id: 'tam_bangers_01',
       category: 'High-Energy Bangers ⚡',
       subtitle: 'Pure energy and festival beats',
-      apiQuery: 'Tamil Kuthu Dance Hits'
+      apiQuery: 'Tamil kuthu'
     }
   ],
   telugu: [
@@ -73,19 +73,19 @@ export const CURATED_PLAYLISTS = {
       id: 'tel_trending_01',
       category: 'Trending Now 🔥',
       subtitle: 'Top chartbusters from Tollywood',
-      apiQuery: 'Telugu Trending 2026 Thaman S'
+      apiQuery: 'Telugu hits'
     },
     {
       id: 'tel_classics_01',
       category: 'Timeless Classics 🌴',
       subtitle: 'Retro gold and melody classics',
-      apiQuery: 'Mani Sharma Telugu 90s Hits'
+      apiQuery: 'Telugu classic'
     },
     {
       id: 'tel_romance_01',
       category: 'Late Night Romance 💖',
       subtitle: 'Romantic heartbeats from Telugu cinema',
-      apiQuery: 'Telugu Love Melodies Sid Sriram'
+      apiQuery: 'Telugu romance'
     }
   ],
   kannada: [
@@ -93,19 +93,19 @@ export const CURATED_PLAYLISTS = {
       id: 'kan_trending_01',
       category: 'Trending Now 🔥',
       subtitle: "Sandalwood's biggest current hits",
-      apiQuery: 'Kannada Trending 2026 Ravi Basrur'
+      apiQuery: 'Kannada hits'
     },
     {
       id: 'kan_classics_01',
       category: 'Timeless Classics 🌴',
       subtitle: 'Evergreen Sandalwood melodies',
-      apiQuery: 'Hamsalekha Kannada Retro Hits'
+      apiQuery: 'Kannada classic'
     },
     {
       id: 'kan_romance_01',
       category: 'Late Night Romance 💖',
       subtitle: 'Preethi: Modern romantic vibes',
-      apiQuery: 'Sanjith Hegde Kannada Love Songs'
+      apiQuery: 'Kannada romance'
     }
   ],
   hindi: [
@@ -113,19 +113,19 @@ export const CURATED_PLAYLISTS = {
       id: 'hin_trending_01',
       category: 'Trending Now 🔥',
       subtitle: "Bollywood's top viral chart-toppers",
-      apiQuery: 'Hindi Trending 2026 Arijit Singh'
+      apiQuery: 'Bollywood hits'
     },
     {
       id: 'hin_classics_01',
       category: 'Timeless Classics 🌴',
       subtitle: 'The golden era of Indian cinema',
-      apiQuery: 'Kishore Kumar Lata Mangeshkar Hits'
+      apiQuery: 'Hindi classic'
     },
     {
       id: 'hin_romance_01',
       category: 'Late Night Romance 💖',
       subtitle: 'Ishq & Melodies for the soul',
-      apiQuery: 'Pritam Romantic Bollywood Hits'
+      apiQuery: 'Hindi romantic'
     }
   ],
   english: [
@@ -133,19 +133,19 @@ export const CURATED_PLAYLISTS = {
       id: 'eng_trending_01',
       category: 'Trending Now 🔥',
       subtitle: 'International hits trending worldwide',
-      apiQuery: 'Global Viral Pop Billboard 2026'
+      apiQuery: 'Global pop hits'
     },
     {
       id: 'eng_classics_01',
       category: 'Timeless Classics 🌴',
       subtitle: 'Timeless anthems that never age',
-      apiQuery: '80s 90s Classic Rock Pop Hits'
+      apiQuery: 'Classic rock'
     },
     {
       id: 'eng_romance_01',
       category: 'Late Night Romance 💖',
       subtitle: 'Late night acoustic heartbeats',
-      apiQuery: 'Acoustic Love Melodies English'
+      apiQuery: 'Acoustic pop'
     }
   ]
 };

@@ -1,15 +1,13 @@
 import { appCache } from './lruCache';
 
 // Configuration
+// Pointing to our new serverless Deezer proxy route
 const API_ENDPOINTS = [
-  import.meta.env.VITE_API_URL,
-  'https://saavn.me',
-  'https://jiosaavn-api-privatecvc2.vercel.app',
-  'https://saavn.dev/api'
-].filter(Boolean); // Remove empty/undefined
+  '/api/deezer'
+];
 
-const MAX_RETRIES = 3;
-const BASE_DELAY_MS = 500; // 500ms, 1s, 2s
+const MAX_RETRIES = 1;
+const BASE_DELAY_MS = 500;
 
 /**
  * Helper to delay execution for exponential backoff
@@ -32,20 +30,20 @@ class ApiClient {
 
   // Switches to the next API in the pool
   switchToNextApi() {
+    // Only one endpoint now, but keeping structure for future scaling
     this.currentApiIndex = (this.currentApiIndex + 1) % API_ENDPOINTS.length;
-    console.warn(`[API Switch] Now using fallback API: ${this.getBaseUrl()}`);
   }
 
-  async fetch(endpoint, options = {}) {
+  async fetch(endpointPath, options = {}) {
     const { disableCache = false, abortKey = null, retries = MAX_RETRIES, params, ...nativeFetchOptions } = options;
     
-    // We will attempt across retries AND across API endpoints.
-    // So total attempts could be higher.
     let attempt = 0;
     
     while (attempt <= retries) {
       const baseUrl = this.getBaseUrl();
-      const url = new URL(endpoint, baseUrl);
+      // We pass the target Deezer endpoint via query parameter to our local proxy
+      const url = new URL(baseUrl, window.location.origin);
+      url.searchParams.append('endpoint', endpointPath.startsWith('/') ? endpointPath.slice(1) : endpointPath);
       
       if (params) {
         Object.entries(params).forEach(([k, v]) => {
@@ -81,15 +79,17 @@ class ApiClient {
         const response = await fetch(url.toString(), finalOptions);
         
         if (!response.ok) {
-          // If 404 or 5xx, or network failure, we will retry/switch API
           if (response.status >= 400 && response.status < 500 && response.status !== 429 && response.status !== 404) {
              const errorData = await response.json().catch(() => ({}));
-             throw new Error(errorData.message || `Client error: ${response.status}`);
+             throw new Error(errorData.message || errorData.error || `Client error: ${response.status}`);
           }
           throw new Error(`Server error: ${response.status}`);
         }
 
         const data = await response.json();
+        
+        // Wrap Deezer data if it isn't wrapped in a 'data' array to maintain consistency
+        // Deezer often returns { data: [...] } which is fine.
         
         if (isGet && !disableCache) {
           appCache.set(cacheKey, data);
@@ -107,14 +107,12 @@ class ApiClient {
         attempt++;
         this.abortControllers.delete(reqKey);
         
-        // If we hit an error, rotate the API for the next attempt
         console.error(`[API Error] Request failed on ${baseUrl}. Attempt ${attempt}/${retries}. Error:`, error);
         
         if (attempt > retries) {
            throw error;
         }
         
-        // Switch API endpoint on failure
         this.switchToNextApi();
 
         const waitTime = BASE_DELAY_MS * Math.pow(2, attempt - 1);
@@ -126,12 +124,12 @@ class ApiClient {
 
   // --- Convenience Methods ---
 
-  get(endpoint, config = {}) {
-    return this.fetch(endpoint, { method: 'GET', ...config });
+  get(endpointPath, config = {}) {
+    return this.fetch(endpointPath, { method: 'GET', ...config });
   }
 
-  post(endpoint, data, config = {}) {
-    return this.fetch(endpoint, { 
+  post(endpointPath, data, config = {}) {
+    return this.fetch(endpointPath, { 
       method: 'POST', 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -141,3 +139,4 @@ class ApiClient {
 }
 
 export const api = new ApiClient();
+

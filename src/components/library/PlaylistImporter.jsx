@@ -61,16 +61,16 @@ export default function PlaylistImporter({ isOpen, onClose }) {
         }
 
         // Fetch top 10 results to broaden precision matching pool
-        const res = await api.get('/search/songs', { 
-           params: { query: line, limit: 10 } 
+        const res = await api.get('/search', { 
+           params: { q: line, limit: 10 } 
         });
         
-        const results = res.data?.results || res.results || res.data || [];
+        const results = res.data?.data || res.data || [];
         
         // 1. Negative Keyword Filter (Rejects bad audio)
         const negativePattern = /karaoke|cover|sped up|tribute|lofi|zzang|originally performed|instrumental/i;
         const filteredResults = results.filter(r => {
-           const text = `${r.title || r.name} ${r.primaryArtists || r.artist}`.toLowerCase();
+           const text = `${r.title} ${r.artist?.name}`.toLowerCase();
            return !negativePattern.test(text);
         });
 
@@ -78,7 +78,7 @@ export default function PlaylistImporter({ isOpen, onClose }) {
         let finalTrack = filteredResults[0]; 
         if (artistHint && filteredResults.length > 0) {
            const exactMatch = filteredResults.find(r => {
-             const artists = (r.primaryArtists || r.artist || '').toLowerCase();
+             const artists = (r.artist?.name || '').toLowerCase();
              // Safe optional chaining string match
              return artists.includes(artistHint) || artistHint.includes(artists);
            });
