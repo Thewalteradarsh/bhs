@@ -2,14 +2,51 @@ import { useState } from 'react';
 import { api } from '../../utils/apiClient';
 import { useAppStore } from '../../store/useAppStore';
 import PlaylistCover from './PlaylistCover';
-import { Download, X, CheckCircle, AlertCircle } from 'lucide-react';
+import { Download, X, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { clearGarbage } from '../../utils/cleanupUtils';
 
 export default function PlaylistImporter({ isOpen, onClose }) {
   const [inputText, setInputText] = useState('');
+  const [playlistUrl, setPlaylistUrl] = useState('');
+  const [isFetchingUrl, setIsFetchingUrl] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [progress, setProgress] = useState({ current: 0, total: 0, failed: 0 });
   const [importedPlaylist, setImportedPlaylist] = useState(null);
+
+  const handleUrlFetch = async (url) => {
+    if (!url.includes('spotify.com/')) return;
+    
+    setIsFetchingUrl(true);
+    try {
+      let embedUrl = url;
+      if (url.includes('open.spotify.com/playlist/')) {
+          embedUrl = url.replace('open.spotify.com/playlist/', 'open.spotify.com/embed/playlist/');
+      } else if (url.includes('open.spotify.com/album/')) {
+          embedUrl = url.replace('open.spotify.com/album/', 'open.spotify.com/embed/album/');
+      }
+      embedUrl = embedUrl.split('?')[0];
+      
+      const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(embedUrl)}`);
+      const data = await response.json();
+      const html = data.contents;
+      
+      const match = html.match(/<script id="__NEXT_DATA__"[^>]*>(.*?)<\/script>/);
+      if (match) {
+        const nextData = JSON.parse(match[1]);
+        const trackList = nextData.props?.pageProps?.state?.data?.entity?.trackList || [];
+        
+        const formattedTracks = trackList.map(t => `${t.title} - ${t.subtitle}`).filter(t => t !== ' - ').join('\n');
+        if (formattedTracks) {
+           setInputText(prev => prev ? prev + '\n' + formattedTracks : formattedTracks);
+           setPlaylistUrl(''); // Clear input after successful fetch
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch playlist via URL", err);
+    } finally {
+      setIsFetchingUrl(false);
+    }
+  };
 
   const handleImport = async () => {
     if (!inputText.trim()) return;
@@ -105,6 +142,26 @@ export default function PlaylistImporter({ isOpen, onClose }) {
 
         {!isImporting && !importedPlaylist && (
           <>
+            <div className="mb-4 relative">
+              <input 
+                type="text" 
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-md p-3 pr-10 text-white text-sm focus:border-primary focus:outline-none placeholder-grayText/50"
+                placeholder="Enter Spotify Playlist URL..."
+                value={playlistUrl}
+                onChange={(e) => {
+                  setPlaylistUrl(e.target.value);
+                  if (e.target.value.includes('spotify.com/')) {
+                    handleUrlFetch(e.target.value);
+                  }
+                }}
+              />
+              {isFetchingUrl && (
+                <div className="absolute right-3 top-3 text-primary animate-spin">
+                  <Loader2 size={20} />
+                </div>
+              )}
+            </div>
+
             <textarea 
               className="w-full h-48 bg-[#1a1a1a] border border-[#333] rounded-md p-3 text-white text-sm custom-scrollbar mb-4 focus:border-primary focus:outline-none placeholder-grayText/50"
               placeholder={`Blinding Lights - The Weeknd\nShape of You - Ed Sheeran\n...`}

@@ -7,7 +7,8 @@ const LANGUAGES = [
   { id: 'punjabi', label: 'Punjabi', native: 'ਪੰਜਾਬੀ' },
   { id: 'tamil', label: 'Tamil', native: 'தமிழ்' },
   { id: 'telugu', label: 'Telugu', native: 'తెలుగు' },
-  { id: 'marathi', label: 'Marathi', native: 'मराठी' }
+  { id: 'marathi', label: 'Marathi', native: 'मराठी' },
+  { id: 'malayalam', label: 'Malayalam', native: 'മലയാളം' }
 ];
 
 export default function LanguagePicker() {
