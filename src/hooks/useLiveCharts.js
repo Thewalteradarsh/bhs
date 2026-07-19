@@ -15,14 +15,33 @@ export function useLiveCharts(spotifyId) {
 
         try {
             const targetUrl = `https://open.spotify.com/embed/playlist/${id}`;
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`;
 
+            console.log("Fetching live playlist from URL:", proxyUrl);
             const response = await fetch(proxyUrl);
-            if (!response.ok) throw new Error('Network error fetching playlist proxy');
+            if (!response.ok) throw new Error(`Network error fetching playlist proxy: ${response.status} ${response.statusText}`);
 
-            const data = await response.json();
-            const html = data.contents;
-            if (!html) throw new Error('Empty payload returned');
+            const rawText = await response.text();
+            if (!rawText) throw new Error('Empty payload returned');
+
+            let html = rawText;
+            
+            // Ensure we check if it's valid JSON before trying to parse a contents string
+            // to prevent crashes on 404s or empty responses from proxies
+            try {
+                const parsedJson = JSON.parse(rawText);
+                if (parsedJson.contents) {
+                    html = parsedJson.contents;
+                } else if (parsedJson.error) {
+                    throw new Error(`Proxy returned an error: ${parsedJson.error}`);
+                }
+            } catch (jsonErr) {
+                // If it fails to parse as JSON and it's not a proxy Error thrown above,
+                // it means we got raw HTML back from corsproxy.io, which is expected.
+                if (jsonErr.message.includes('Proxy returned an error')) {
+                    throw jsonErr;
+                }
+            }
 
             const tagStart = '<script id="__NEXT_DATA__" type="application/json">';
             const startIdx = html.indexOf(tagStart);
