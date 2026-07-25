@@ -7,6 +7,15 @@ export default function FullScreenPlayer({ isOpen, onClose }) {
   const { currentTrack, status, progress, duration } = useAppStore(state => state.playbackState);
   const likedSongs = useAppStore(state => state.library.likedSongs);
   
+  // Phase 5: Hardware-Accelerated Gesture Bindings
+  // This hook MUST be called unconditionally before any early returns.
+  const swipeHandlers = useSwipe({
+    onSwipeDown: onClose, 
+    onSwipeLeft: () => useAppStore.getState().playNext(), 
+    onSwipeRight: () => useAppStore.getState().playPrevious(), 
+    threshold: 50 // Responsive pixel threshold
+  });
+
   if (!currentTrack) return null;
 
   const isPlaying = status === 'PLAYING';
@@ -35,14 +44,6 @@ export default function FullScreenPlayer({ isOpen, onClose }) {
   const toggleLike = () => {
     useAppStore.getState().toggleLikeTrack(currentTrack);
   };
-
-  // Phase 5: Hardware-Accelerated Gesture Bindings
-  const swipeHandlers = useSwipe({
-    onSwipeDown: onClose, 
-    onSwipeLeft: () => useAppStore.getState().playNext(), 
-    onSwipeRight: () => useAppStore.getState().playPrevious(), 
-    threshold: 50 // Responsive pixel threshold
-  });
 
   return (
     <div 

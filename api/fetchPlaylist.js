@@ -52,6 +52,24 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: 'No tracks found in the playlist' });
     }
 
+    const { format } = req.query;
+
+    if (format === 'json') {
+      const formattedJson = trackList.map((t, index) => ({
+         rank: index + 1,
+         id: t.uid || t.id || `track_${index}`,
+         title: t.title,
+         artists: t.subtitle,
+         albumArt: t.coverArt?.sources?.[0]?.url || '',
+         durationMs: t.duration || 0,
+         previewUrl: t.audioPreview?.url || null
+      }));
+      return res.status(200).json({ 
+        name: parsed?.props?.pageProps?.state?.data?.entity?.name || 'Playlist',
+        tracks: formattedJson 
+      });
+    }
+
     // Format the tracks into a clean string directly on the server to save client processing
     const formattedTracks = trackList.map(t => `${t.title} - ${t.subtitle}`).filter(t => t !== ' - ').join('\n');
 

@@ -14,53 +14,29 @@ export function useLiveCharts(spotifyId) {
         setError(null);
 
         try {
-            // [!] IMPORTANT: The direct HTML proxy approach is blocked by Spotify.
-            // Switching to the official Spotify Web API.
-            // TODO: Insert a valid client-side generated Spotify Access Token here.
-            // Example: const accessToken = 'BQA...';
-            const accessToken = ''; 
+            // Securely proxy the Spotify request through our local API 
+            // which bypasses the need for client-side Spotify access tokens.
+            const apiUrl = `/api/fetchPlaylist?playlistUrl=https://open.spotify.com/playlist/${id}&format=json`;
+            console.log("Fetching live playlist from local API:", apiUrl);
 
-            if (!accessToken) {
-                console.warn("Missing Spotify Access Token. Please provide one to fetch playlists.");
-                // For development, if token is missing, we could throw here or handle gracefully.
-                throw new Error("Missing Spotify Access Token");
-            }
-
-            const apiUrl = `https://api.spotify.com/v1/playlists/${id}`;
-            console.log("Fetching live playlist from Spotify API:", apiUrl);
-
-            const response = await fetch(apiUrl, {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`
-                }
-            });
+            const response = await fetch(apiUrl);
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(`Spotify API error: ${response.status} ${errorData.error?.message || response.statusText}`);
+                throw new Error(`API error: ${response.status} ${errorData.error || response.statusText}`);
             }
 
             const data = await response.json();
 
-            if (!data || !data.tracks || !data.tracks.items) {
+            if (!data || !data.tracks) {
                 throw new Error('Playlist tracklist structure is missing or invalid');
             }
 
-            const formattedTracks = data.tracks.items
-                .filter(item => item.track) // Filter out null tracks or local files if any
-                .map((item, index) => {
-                    const track = item.track;
-                    return {
-                        rank: index + 1,
-                        id: track.id || `track_${index}`,
-                        title: track.name || 'Unknown Title',
-                        artists: track.artists?.map(a => a.name).join(', ') || 'Unknown Artist',
-                        albumArt: track.album?.images?.[0]?.url || '',
-                        durationMs: track.duration_ms || 0,
-                        durationFormatted: formatDuration(track.duration_ms),
-                        previewUrl: track.preview_url || null
-                    };
-                });
+            // The local API now returns pre-formatted tracks
+            const formattedTracks = data.tracks.map((track) => ({
+                ...track,
+                durationFormatted: formatDuration(track.durationMs)
+            }));
 
             const title = data.name || 'Playlist';
 

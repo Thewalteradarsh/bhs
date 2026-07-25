@@ -62,7 +62,7 @@ export default function PlaylistImporter({ isOpen, onClose }) {
 
         // Fetch top 10 results to broaden precision matching pool
         const res = await api.get('/search', { 
-           params: { q: line, limit: 10 } 
+           params: { q: query, limit: 10 } 
         });
         
         const results = res.data?.data || res.data || [];
