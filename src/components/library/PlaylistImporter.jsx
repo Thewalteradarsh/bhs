@@ -14,26 +14,40 @@ export default function PlaylistImporter({ isOpen, onClose }) {
   const [importedPlaylist, setImportedPlaylist] = useState(null);
 
   const handleUrlFetch = async (url) => {
-    if (!url.includes('spotify.com/')) return;
+    if (!url.includes('spotify.com/') && !url.includes('jiosaavn.com/')) return;
     
     setIsFetchingUrl(true);
     try {
-      const apiUrl = `/api/fetchPlaylist?playlistUrl=${encodeURIComponent(url)}`;
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || `Server error: ${response.status}`);
+      let tracksString = '';
+
+      if (url.includes('spotify.com/')) {
+        const apiUrl = `/api/fetchPlaylist?playlistUrl=${encodeURIComponent(url)}`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`Spotify fetch failed: ${response.status}`);
+        const data = await response.json();
+        tracksString = data.tracks;
+      } else if (url.includes('jiosaavn.com/')) {
+        // Use our new resilient JioSaavn proxy queue
+        const apiUrl = `/api/jiosaavn?endpoint=playlists&link=${encodeURIComponent(url)}`;
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`JioSaavn fetch failed: ${response.status}`);
+        const data = await response.json();
+        const playlistData = data?.data || data;
+        
+        if (playlistData && playlistData.songs) {
+          // Format exactly like the Spotify scraper: "Title - Artist"
+          tracksString = playlistData.songs.map(s => `${s.title || s.name} - ${s.primaryArtists || ''}`).join('\n');
+        } else {
+          throw new Error("Could not parse songs from JioSaavn playlist.");
+        }
       }
 
-      if (data.tracks) {
-        setInputText(prev => prev ? prev + '\n' + data.tracks : data.tracks);
+      if (tracksString) {
+        setInputText(prev => prev ? prev + '\n' + tracksString : tracksString);
         setPlaylistUrl(''); // Clear input after successful fetch
       }
     } catch (err) {
-      console.error("Failed to fetch playlist via local API", err);
-      // Optional: you could set an error state here to show in the UI
-    } finally {
+      console.error("Failed to fetch playlist", err);
       setIsFetchingUrl(false);
     }
   };
@@ -60,17 +74,18 @@ export default function PlaylistImporter({ isOpen, onClose }) {
           artistHint = parts[1].trim().toLowerCase();
         }
 
-        // Fetch top 10 results to broaden precision matching pool
-        const res = await api.get('/search', { 
-           params: { q: query, limit: 10 } 
-        });
+        // Fetch top 10 results from JioSaavn API Queue for better English song coverage
+        const res = await fetch(`/api/jiosaavn?endpoint=search/songs&query=${encodeURIComponent(query)}&limit=10`);
+        const data = await res.json();
         
-        const results = res.data?.data || res.data || [];
+        const results = data?.data?.results || data?.results || data?.data || [];
         
         // 1. Negative Keyword Filter (Rejects bad audio)
         const negativePattern = /karaoke|cover|sped up|tribute|lofi|zzang|originally performed|instrumental/i;
         const filteredResults = results.filter(r => {
-           const text = `${r.title} ${r.artist?.name}`.toLowerCase();
+           const title = r.title || r.name || '';
+           const artist = r.artist?.name || r.primaryArtists || '';
+           const text = `${title} ${artist}`.toLowerCase();
            return !negativePattern.test(text);
         });
 
@@ -78,7 +93,7 @@ export default function PlaylistImporter({ isOpen, onClose }) {
         let finalTrack = filteredResults[0]; 
         if (artistHint && filteredResults.length > 0) {
            const exactMatch = filteredResults.find(r => {
-             const artists = (r.artist?.name || '').toLowerCase();
+             const artists = (r.artist?.name || r.primaryArtists || '').toLowerCase();
              // Safe optional chaining string match
              return artists.includes(artistHint) || artistHint.includes(artists);
            });
@@ -86,7 +101,18 @@ export default function PlaylistImporter({ isOpen, onClose }) {
         }
 
         if (finalTrack) {
-           resolvedTracks.push(finalTrack);
+           // Normalize JioSaavn schema to standard App Schema (Deezer-like)
+           const normalizedTrack = {
+             id: finalTrack.id,
+             title: finalTrack.title || finalTrack.name,
+             artist: { name: finalTrack.artist?.name || finalTrack.primaryArtists },
+             album: { 
+               title: finalTrack.album?.title || finalTrack.album?.name || '',
+               cover_medium: finalTrack.album?.cover_medium || finalTrack.image?.[2]?.link || finalTrack.image?.[1]?.link || finalTrack.image?.[0]?.link || ''
+             },
+             preview: finalTrack.preview || finalTrack.downloadUrl?.[2]?.link || ''
+           };
+           resolvedTracks.push(normalizedTrack);
         } else {
            failures++;
         }
@@ -125,9 +151,9 @@ export default function PlaylistImporter({ isOpen, onClose }) {
            <X size={24} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-2 flex items-center gap-2"><Download className="text-primary"/> Import from Spotify</h2>
+        <h2 className="text-2xl font-bold mb-2 flex items-center gap-2"><Download className="text-primary"/> Import Playlist</h2>
         <p className="text-grayText text-sm mb-6">
-          To import a Spotify playlist, open Spotify on your desktop, select all tracks (Ctrl+A / Cmd+A), copy them (Ctrl+C / Cmd+C), and paste them below. We will use precision matching to automatically find and link the high-quality audio streams.
+          To import a playlist, paste a Spotify or JioSaavn playlist URL, or paste a list of tracks below. We use resilient API queues and precision matching to automatically find and link the high-quality audio streams.
         </p>
 
         {!isImporting && !importedPlaylist && (
@@ -136,11 +162,11 @@ export default function PlaylistImporter({ isOpen, onClose }) {
               <input 
                 type="text" 
                 className="w-full bg-[#1a1a1a] border border-[#333] rounded-md p-3 pr-10 text-white text-sm focus:border-primary focus:outline-none placeholder-grayText/50"
-                placeholder="Enter Spotify Playlist URL..."
+                placeholder="Enter Spotify or JioSaavn Playlist URL..."
                 value={playlistUrl}
                 onChange={(e) => {
                   setPlaylistUrl(e.target.value);
-                  if (e.target.value.includes('spotify.com/')) {
+                  if (e.target.value.includes('spotify.com/') || e.target.value.includes('jiosaavn.com/')) {
                     handleUrlFetch(e.target.value);
                   }
                 }}
