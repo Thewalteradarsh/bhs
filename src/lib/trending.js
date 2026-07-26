@@ -40,12 +40,12 @@ function writeCache(lang, tracks) {
 // ── Network fetch ─────────────────────────────────────────────────────────────
 
 async function fetchFromServer(lang, forceRefresh = false) {
-  const baseUrl = 'https://hear.beatzadgaming.workers.dev';
+  const baseUrl = import.meta.env.DEV ? '' : '/api';
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 20000);
   
   try {
-    const res = await fetch(`${baseUrl}/api/top-charts?lang=${lang}${forceRefresh ? '&force=true' : ''}`, {
+    const res = await fetch(`${baseUrl}/top-charts?lang=${lang}${forceRefresh ? '&force=true' : ''}`, {
       signal: controller.signal,
     });
     clearTimeout(timeoutId);

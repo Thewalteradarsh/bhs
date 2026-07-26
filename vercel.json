@@ -1,9 +1,2 @@
 {
-  "redirects": [
-    {
-      "source": "/((?!api/).*)",
-      "destination": "https://hear-b0p.pages.dev/$1",
-      "permanent": true
-    }
-  ]
 }

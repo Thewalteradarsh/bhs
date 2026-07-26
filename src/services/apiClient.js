@@ -24,10 +24,10 @@ export const API_ENDPOINTS = customApi
   ? [customApi.replace(/\/$/, ''), ...baseMirrors] 
   : baseMirrors;
 
-/** Base URL for the Hear Cloudflare Worker — handles /result/, /api/yt-search, etc.
- *  During local dev, we proxy /result/ and /api/ locally to bypass CORS & geo-restrictions.
+/** Base URL for the Hear API — handles /api/yt-search, /api/stream-proxy, etc.
+ *  During local dev and Vercel production, we proxy /api/ locally to bypass CORS & geo-restrictions.
  */
-export const HEAR_WORKER_BASE = import.meta.env.DEV ? '' : 'https://hear-pwa.pages.dev';
+export const HEAR_WORKER_BASE = '';
 
 /** Default per-request timeout in milliseconds */
 const REQUEST_TIMEOUT_MS = 8000;
