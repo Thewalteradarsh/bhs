@@ -1,0 +1,392 @@
+[
+  {
+    "id": "YnTqVJEf",
+    "name": "Jeevamshamayi - Duet",
+    "primaryArtists": "KS Harisankar, Shreya Ghoshal",
+    "album": "Theevandi",
+    "image": "https://c.saavncdn.com/421/Theevandi-Malayalam-2018-20180914-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/421/fc3714df53584f5aa629ef6195138fc6_320.mp4",
+    "duration": 323,
+    "language": "malayalam"
+  },
+  {
+    "id": "xJVO1Mf0",
+    "name": "Darshana",
+    "primaryArtists": "Hesham Abdul Wahab, Darshana Rajendran",
+    "album": "Hridayam (Side A)",
+    "image": "https://c.saavncdn.com/555/Hridayam-Side-A-Malayalam-2022-20230803211029-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/555/dd42c3e603cb40b91cc2ddd03ae6a499_320.mp4",
+    "duration": 225,
+    "language": "malayalam"
+  },
+  {
+    "id": "wFRQqJeJ",
+    "name": "Parayuvaan",
+    "primaryArtists": "Jakes Bejoy, Sid Sriram, Neha S Nair",
+    "album": "Ishq",
+    "image": "https://c.saavncdn.com/480/Ishq-Malayalam-2019-20220506185513-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/480/cfa11cd6d240b6ccf739b2a76c7b0518_320.mp4",
+    "duration": 277,
+    "language": "malayalam"
+  },
+  {
+    "id": "5lKRGwCu",
+    "name": "Pavizha Mazha",
+    "primaryArtists": "KS Harisankar",
+    "album": "Athiran",
+    "image": "https://c.saavncdn.com/485/Athiran-Malayalam-2019-20190411181147-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/485/28d223dd762ff6dc232df2e2ed05e4a4_320.mp4",
+    "duration": 233,
+    "language": "malayalam"
+  },
+  {
+    "id": "OSVscFyH",
+    "name": "Alare",
+    "primaryArtists": "Kailas Menon, Ayraan, Nithya Mammen",
+    "album": "Member Rameshan 9aam Ward",
+    "image": "https://c.saavncdn.com/827/Member-Rameshan-9aam-Ward-Malayalam-2021-20220224161937-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/827/6c2486cdf4b7bf4ae271e130f627a5a6_320.mp4",
+    "duration": 261,
+    "language": "malayalam"
+  },
+  {
+    "id": "-ihHxO4F",
+    "name": "Kamini",
+    "primaryArtists": "KS Harisankar",
+    "album": "Anugraheethan Antony",
+    "image": "https://c.saavncdn.com/175/Anugraheethan-Antony-Malayalam-2019-20210929104746-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/175/9c2fd91d26ba41bae9321f88ddaabbf4_320.mp4",
+    "duration": 238,
+    "language": "malayalam"
+  },
+  {
+    "id": "CxmEZkd8",
+    "name": "Puthiyoru Pathayil",
+    "primaryArtists": "Nazriya Nazim",
+    "album": "Varathan",
+    "image": "https://c.saavncdn.com/227/Varathan-Malayalam-2018-20180912-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/227/87aa4a82a322b90437692a2bc8351bb5_320.mp4",
+    "duration": 185,
+    "language": "malayalam"
+  },
+  {
+    "id": "HurihO7p",
+    "name": "Aarohyam Vradha",
+    "primaryArtists": "Radhika Gopalakrishnan",
+    "album": "Adhithya Hridayam Navagraha Slokams & Stothram",
+    "image": "https://c.saavncdn.com/562/Adhithya-Hridayam-Navagraha-Slokams-Stothram-Sanskrit-2021-20260209210247-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/562/cf507e462a47a6da248fd7ab17401fb6_320.mp4",
+    "duration": 89,
+    "language": "sanskrit"
+  },
+  {
+    "id": "lzjhS9dF",
+    "name": "Raaj Karega Maalik (From 'Maalik')",
+    "primaryArtists": "Amitabh Bhattacharya, MC Square, Sachin-Jigar, Akasa",
+    "album": "Maalik",
+    "image": "https://c.saavncdn.com/950/Maalik-Hindi-2025-20251117193456-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/950/3d8bce2c822aca0a13955163217e64f9_320.mp4",
+    "duration": 216,
+    "language": "hindi"
+  },
+  {
+    "id": "5SboKYdp",
+    "name": "Uyire",
+    "primaryArtists": "Narayani Gopan, Mithun Jayaraj",
+    "album": "Minnal Murali",
+    "image": "https://c.saavncdn.com/140/Minnal-Murali-Malayalam-2021-20220118112804-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/140/3720e673743a94aae0b4d5cf9d04e1a7_320.mp4",
+    "duration": 327,
+    "language": "malayalam"
+  },
+  {
+    "id": "mDrtHCW0",
+    "name": "Ee Shishirakaalam",
+    "primaryArtists": "Kavya Ajit, Shaan Rahman",
+    "album": "Jacobinte Swargarajyam",
+    "image": "https://c.saavncdn.com/511/Jacobinte-Swargarajyam-Malayalam-2016-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/511/76de0c4441495d881fff07f6536c7e83_320.mp4",
+    "duration": 225,
+    "language": "malayalam"
+  },
+  {
+    "id": "tGoTB34m",
+    "name": "Kisa Paathiyil",
+    "primaryArtists": "Sachin Balu, Suchith Suresan, Sushin Shyam",
+    "album": "Kismath",
+    "image": "https://c.saavncdn.com/725/Kismath-Malayalam-2016-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/725/44cfebf3deea433dd0fecb2653b716b6_320.mp4",
+    "duration": 207,
+    "language": "malayalam"
+  },
+  {
+    "id": "7xB3KpdA",
+    "name": "Nilapakshi Happy Version",
+    "primaryArtists": "Vinayak Sasikumar, Sushin Shyam, Neha S. Nair",
+    "album": "Maradona",
+    "image": "https://c.saavncdn.com/787/Maradona-Malayalam-2018-20260205133228-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/787/1a40d9369863c27144592a6ddbd02621_320.mp4",
+    "duration": 228,
+    "language": "malayalam"
+  },
+  {
+    "id": "azNT3vl1",
+    "name": "Neela Nilave",
+    "primaryArtists": "Sam C.S., Kapil Kapilan",
+    "album": "RDX",
+    "image": "https://c.saavncdn.com/411/RDX-Malayalam-2023-20250130073151-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/411/b1fe94ac64a44fa8c0102f8ad25cdf17_320.mp4",
+    "duration": 253,
+    "language": "malayalam"
+  },
+  {
+    "id": "AKudFuvz",
+    "name": "Ranam",
+    "primaryArtists": "Ajaey Shravan, Neha Nair, Jakes Bejoy, Saint TFC",
+    "album": "Ranam",
+    "image": "https://c.saavncdn.com/346/Ranam-Malayalam-2018-20180920-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/346/c91b83f24a74dc7c255809ddb61d9298_320.mp4",
+    "duration": 301,
+    "language": "malayalam"
+  },
+  {
+    "id": "ER5NUWNt",
+    "name": "Aaraadhike",
+    "primaryArtists": "Sooraj Santhosh, Madhuvanthi Narayan",
+    "album": "Ambili",
+    "image": "https://c.saavncdn.com/329/Ambili-Malayalam-2019-20220506214208-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/329/99ac7f1046726c16ba2958a87e531fb7_320.mp4",
+    "duration": 360,
+    "language": "malayalam"
+  },
+  {
+    "id": "heQaMHYD",
+    "name": "Poomuthole",
+    "primaryArtists": "Niranj Suresh",
+    "album": "Joseph",
+    "image": "https://c.saavncdn.com/674/Joseph-Malayalam-2018-20181119173620-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/674/17652bc6a40619dc17de4ca359b7c242_320.mp4",
+    "duration": 290,
+    "language": "malayalam"
+  },
+  {
+    "id": "a9XxSSS1",
+    "name": "Akale",
+    "primaryArtists": "Malgudi Subha, Gopi Sunder",
+    "album": "Charlie",
+    "image": "https://c.saavncdn.com/276/Charlie-Malayalam-2015-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/276/f42b26601593f85ee5745627f6f94ec1_320.mp4",
+    "duration": 243,
+    "language": "malayalam"
+  },
+  {
+    "id": "IVJnErCJ",
+    "name": "Pularikalo",
+    "primaryArtists": "Shakthisree Gopalan, Md. Maqbool Mansoor, Gopi Sunder",
+    "album": "Charlie",
+    "image": "https://c.saavncdn.com/276/Charlie-Malayalam-2015-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/276/9f6764a332d87ecf6ca12aa6e8282a14_320.mp4",
+    "duration": 349,
+    "language": "malayalam"
+  },
+  {
+    "id": "uAHm_XBW",
+    "name": "Kaathil Thenmazhayay (Recreated Version)",
+    "primaryArtists": "Ishaan Dev",
+    "album": "Kaathil Thenmazhayay (Recreated Version)",
+    "image": "https://c.saavncdn.com/530/Kaathil-Thenmazhayay-Recreated-Version-Malayalam-2024-20250425144949-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/530/86a3ae3e0c38e6552bacc4ab7fbbfd48_320.mp4",
+    "duration": 190,
+    "language": "malayalam"
+  },
+  {
+    "id": "BX1K6XZU",
+    "name": "Maruvaarthai",
+    "primaryArtists": "Darbuka Siva, Sid Sriram",
+    "album": "Enai Noki Paayum Thota",
+    "image": "https://c.saavncdn.com/541/Enai-Noki-Paayum-Thota-Tamil-2023-20240221045138-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/541/053790ea82e4bd0a86769943d297b1ed_320.mp4",
+    "duration": 356,
+    "language": "tamil"
+  },
+  {
+    "id": "64OhVp2Y",
+    "name": "Kaathalae Kaathalae (From '96')",
+    "primaryArtists": "Govind Vasantha, Chinmayi",
+    "album": "Hits of 2018, Vol. 1",
+    "image": "https://c.saavncdn.com/512/Hits-of-2018-Vol-1-Tamil-2018-20260515204254-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/512/4c682186d406d8abef6765167ad99adc_320.mp4",
+    "duration": 193,
+    "language": "tamil"
+  },
+  {
+    "id": "MzOsYorg",
+    "name": "Thalli Pogathey",
+    "primaryArtists": "Sid Sriram, Aaryan Dinesh Kanagaratnam (ADK), Aparna Narayanan, A.R. Rahman",
+    "album": "Achcham Yenbadhu Madamaiyada",
+    "image": "https://c.saavncdn.com/078/Achcham-Yenbadhu-Madamaiyada-A-Tamil-2016-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/078/e41befef292f19b4fd8452e25915077e_320.mp4",
+    "duration": 267,
+    "language": "tamil"
+  },
+  {
+    "id": "raKlAgHN",
+    "name": "Neeyum Naanum Anbe",
+    "primaryArtists": "Hiphop Tamizha, Raghu Dixit, Sathyaprakash D., Jithin Raj",
+    "album": "Imaikkaa Nodigal (Original Motion Picture Soundtrack)",
+    "image": "https://c.saavncdn.com/015/Imaikkaa-Nodigal-Original-Motion-Picture-Soundtrack-Tamil-2018-20251026054442-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/015/1071c160f1c11471287b4015f5dedf62_320.mp4",
+    "duration": 285,
+    "language": "tamil"
+  },
+  {
+    "id": "2WDzMpHM",
+    "name": "Kadhaippoma",
+    "primaryArtists": "Leon James, Sid Sriram, Ko Sesha",
+    "album": "Oh My Kadavule",
+    "image": "https://c.saavncdn.com/435/Oh-My-Kadavule-Tamil-2020-20200207054852-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/435/c8c5e3d0895c11377439673577049ddd_320.mp4",
+    "duration": 282,
+    "language": "tamil"
+  },
+  {
+    "id": "yybMI9Dj",
+    "name": "Ennai vittu | Love today (Female)",
+    "primaryArtists": "Nalini Vittobane",
+    "album": "Ennai vittu | Love today (Female)",
+    "image": "https://c.saavncdn.com/503/Ennai-vittu-Love-today-Female-English-2022-20221121223118-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/503/cdfdb00aa92c4f802d2ad97df25db8d0_320.mp4",
+    "duration": 230,
+    "language": "tamil"
+  },
+  {
+    "id": "-TFpspH-",
+    "name": "Megham Karukatha",
+    "primaryArtists": "Dhanush, Anirudh Ravichander",
+    "album": "Thiruchitrambalam",
+    "image": "https://c.saavncdn.com/238/Thiruchitrambalam-Tamil-2022-20220927091058-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/238/1ceb75e4503fcc4d5110bb238a9b3ca4_320.mp4",
+    "duration": 290,
+    "language": "tamil"
+  },
+  {
+    "id": "z22zvvf9",
+    "name": "Unna Nenachu",
+    "primaryArtists": "Ilaiyaraaja, Sid Sriram, Kabilan",
+    "album": "Psycho (Tamil)",
+    "image": "https://c.saavncdn.com/434/Psycho-Tamil--Tamil-2020-20200117075910-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/434/ad652d32fd2f1ee7f5d31b7dedfe802d_320.mp4",
+    "duration": 275,
+    "language": "tamil"
+  },
+  {
+    "id": "CNhvZDVN",
+    "name": "Naan Pizhai",
+    "primaryArtists": "Anirudh Ravichander, Ravi G, Shashaa Tirupati, Vignesh Shivan",
+    "album": "Kaathuvaakula Rendu Kaadhal",
+    "image": "https://c.saavncdn.com/403/Kaathuvaakula-Rendu-Kaadhal-Original-Motion-Picture-Soundtrack-Tamil-2022-20220428131043-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/403/33144d4e88c7886126eee32f6ed041e4_320.mp4",
+    "duration": 240,
+    "language": "tamil"
+  },
+  {
+    "id": "COdvpif0",
+    "name": "Naan Un",
+    "primaryArtists": "A.R. Rahman, Arijit Singh, Chinmayi, Madhan Karky",
+    "album": "24 (Tamil)",
+    "image": "https://c.saavncdn.com/081/24-Tamil-Tamil-2025-20250930144046-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/081/3556434440b28ae91aeb723e7977f8ab_320.mp4",
+    "duration": 288,
+    "language": "tamil"
+  },
+  {
+    "id": "KC7J40Aw",
+    "name": "Naan Gaali",
+    "primaryArtists": "Sean Roldan",
+    "album": "Good Night (Original Motion Picture Soundtrack)",
+    "image": "https://c.saavncdn.com/530/Good-Night-Original-Motion-Picture-Soundtrack-Tamil-2023-20250905071245-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/530/bf6b2d3c8d18abbbb623cabcfcb28c4a_320.mp4",
+    "duration": 270,
+    "language": "tamil"
+  },
+  {
+    "id": "Q4mxbWWP",
+    "name": "Nenjame",
+    "primaryArtists": "Anirudh Ravichander",
+    "album": "Doctor",
+    "image": "https://c.saavncdn.com/312/Doctor-Tamil-2021-20211005133149-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/312/f318803b84dffaf0ce82d4e645336fbe_320.mp4",
+    "duration": 256,
+    "language": "tamil"
+  },
+  {
+    "id": "kWjUwpeV",
+    "name": "Kurumugil",
+    "primaryArtists": "Vishal Chandrashekhar, Sai Vignesh, Madhan Karky",
+    "album": "Sita Ramam (Tamil)",
+    "image": "https://c.saavncdn.com/089/Sita-Ramam-Tamil-Original-Motion-Picture-Soundtrack-Tamil-2022-20220802141114-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/089/646dbe23281ee5605dc13668ebdd5fa7_320.mp4",
+    "duration": 218,
+    "language": "tamil"
+  },
+  {
+    "id": "pw9Rw8lW",
+    "name": "Mudhal Nee Mudivum Nee Title Track",
+    "primaryArtists": "Thamarai, Darbuka Siva, Sid Sriram",
+    "album": "Best of 2025 Tamil",
+    "image": "https://c.saavncdn.com/818/Best-of-2025-Tamil-Tamil-2025-20251217174706-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/818/b370f102f9e13fad395dbc1aa8c65478_320.mp4",
+    "duration": 332,
+    "language": "tamil"
+  },
+  {
+    "id": "BVjan6oi",
+    "name": "Hey Minnale",
+    "primaryArtists": "Karthik Netha, G.V. Prakash Kumar, Haricharan, Shweta Mohan",
+    "album": "Amaran (Tamil)",
+    "image": "https://c.saavncdn.com/872/Amaran-Tamil-Tamil-2024-20241119174100-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/872/d9f7fc1e9eccbcc9f9809e6791fd33ff_320.mp4",
+    "duration": 229,
+    "language": "tamil"
+  },
+  {
+    "id": "_N6U0zWr",
+    "name": "Rathamaarey",
+    "primaryArtists": "Vishal Mishra, Anirudh Ravichander, Vignesh Shivan",
+    "album": "Jailer",
+    "image": "https://c.saavncdn.com/187/Jailer-Tamil-2023-20230728081443-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/187/77774878dd3b341405dcbc524ddb081a_320.mp4",
+    "duration": 252,
+    "language": "tamil"
+  },
+  {
+    "id": "PBosvYW2",
+    "name": "Vaathiyaara Konjam Paarungadi",
+    "primaryArtists": "Ilaiyaraaja, K. S. Chithra",
+    "album": "Sir I Love You",
+    "image": "https://c.saavncdn.com/735/Sir-I-Love-You-Tamil-1991-20220114125622-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/735/38009f423ad2b5d4332c524c2f265682_320.mp4",
+    "duration": 263,
+    "language": "tamil"
+  },
+  {
+    "id": "LwzoHAWj",
+    "name": "Kangal Edho",
+    "primaryArtists": "Pradeep Kumar, Karthika Vaidyanathan",
+    "album": "Chithha (Original Motion Picture Soundtrack)",
+    "image": "https://c.saavncdn.com/404/Chithha-Original-Motion-Picture-Soundtrack-Tamil-2023-20250905072413-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/404/4eef566ee58489be3d164a24bf9c13f7_320.mp4",
+    "duration": 242,
+    "language": "tamil"
+  },
+  {
+    "id": "JHu0PICo",
+    "name": "Thaai Kelavi",
+    "primaryArtists": "Dhanush, Anirudh Ravichander",
+    "album": "Thiruchitrambalam",
+    "image": "https://c.saavncdn.com/238/Thiruchitrambalam-Tamil-2022-20220927091058-500x500.jpg",
+    "streamUrl": "https://aac.saavncdn.com/238/32ed8b279bd3802539276b51fb8e310e_320.mp4",
+    "duration": 258,
+    "language": "tamil"
+  }
+]

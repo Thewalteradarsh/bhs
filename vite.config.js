@@ -1,41 +1,40 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import { VitePWA } from 'vite-plugin-pwa'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-    react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      manifest: {
-        name: 'Saavn Clone',
-        short_name: 'Saavn',
-        description: 'Enterprise PWA with Offline Playback',
-        theme_color: '#000000',
-        background_color: '#000000',
-        display: 'standalone',
-        icons: [
-          {
-             src: '/logo.png',
-             sizes: '192x192',
-             type: 'image/png'
-          },
-          {
-             src: '/logo.png',
-             sizes: '512x512',
-             type: 'image/png'
-          }
-        ]
+  plugins: [react()],
+  base: './',
+  server: {
+    proxy: {
+      '/result': {
+        target: 'https://www.jiosaavn.com',
+        changeOrigin: true,
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq, req) => {
+            try {
+              const url = new URL(req.url, 'http://localhost');
+              const query = url.searchParams.get('query');
+              const n = url.searchParams.get('n') || '30';
+              proxyReq.path = `/api.php?__call=search.getResults&q=${encodeURIComponent(query)}&n=${n}&p=1&_format=json&_marker=0`;
+            } catch (err) {
+              console.error('[Vite Proxy] failed to rewrite /result path:', err.message);
+            }
+          });
+        },
       },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
-        // Exclude audio caching from workbox, we handle that in idb
-        runtimeCaching: [],
-        maximumFileSizeToCacheInBytes: 10485760 // 10 MiB
-      }
-    })
-  ],
+      // During local dev, forward /api/* to the Cloudflare Pages / Wrangler
+      // local server so Cloudflare Functions (functions/api/*.js) are available.
+      // To enable: run `npx wrangler pages dev ./dist --port 8788` alongside `npm run dev`
+      '/api': {
+        target: 'http://localhost:8788',
+        changeOrigin: true,
+        // If wrangler isn't running, proxy errors are silently ignored so the
+        // frontend fallback path in fetchSpotifyTracklist still works.
+        configure: (proxy) => {
+          proxy.on('error', () => { /* wrangler not running — frontend will fall back */ });
+        },
+      },
+    },
+  },
 })
